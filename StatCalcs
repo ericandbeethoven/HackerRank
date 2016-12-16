@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+import java.math.*;
+
+public class StatCalcs {
+
+    static void printStatistics(int[] array, int N){
+        
+         /* MEAN */
+        double sum = 0;
+        for (int i = 0; i < N; i++) {
+            sum += array[i];
+            }
+        double mean = sum / N;
+        System.out.println(Math.round(mean*10)/10.0d); // rounds to 1 decimal place
+       
+        /* MEDIAN */
+        double median = 0.0; 
+        int middle = N/2;
+          if (N%2 == 1) {
+            median = array[middle];
+            } else {
+            median = (array[middle-1] + array[middle]) / 2.0;
+            }
+         System.out.println(Math.round(median*10)/10.0d); // rounds to 1 decimal place
+        
+        /* MODE */
+          int modeValue = array[0], maxCount = 0;
+
+            for (int i = 0; i < array.length; ++i) {
+                int count = 0;
+                for (int j = 0; j < array.length; ++j) {
+                    if (array[j] == array[i]) ++count;
+                }
+                    if (count > maxCount) {
+                    maxCount = count;
+                    modeValue = array[i];
+                }
+            }
+         System.out.println(modeValue);
+        
+          
+        /* STANDARD DEVIATION */
+        double squareSum = 0;
+        for (int i = 0; i < array.length; i++) {
+            squareSum += Math.pow(array[i] - mean, 2);
+        }
+        double sdev = Math.sqrt((squareSum) / (array.length));
+        System.out.println(Math.round(sdev*10)/10.0d); // rounds to 1 decimal place
+        
+        /* CONFIDENCE INTERVALS */
+         System.out.println(Math.round((mean-1.96*sdev/Math.sqrt(N))*10)/10.0d +" "+ Math.round((mean+1.96*sdev/Math.sqrt(N))*10)/10.0d); // rounds to 1 decimal place
+                
+    } // printStatistics
+        
+    public static void main(String[] args) {
+       
+        /* READ INPUT */
+        Scanner scan = new Scanner(System.in);
+        int j = 0;
+        int N = scan.nextInt();
+        int[] array = new int[N]; 
+        while (scan.hasNext()) {
+         if (scan.hasNextInt()) {
+                array[j]=scan.nextInt();
+                j++;
+                }
+           }
+        scan.close();        
+        
+        /* Preprocessing - Sort Array */
+        Arrays.sort(array);
+             
+        // Print your result
+        printStatistics(array, N);
+        
+       
+    } // main
+} // StatCalcs
