@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+import java.time.LocalDate;
+
+/* You are given a date. Your task is to find what the day is on that date. 
+REQUIRES JAVA 8
+*/
+
+public class Solution {
+
+    static void printDay(int M, int D, int Y){
+        LocalDate dt = LocalDate.of(Y, M, D);
+        System.out.print(dt.getDayOfWeek());
+    } // printDay
+    
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int month = in.nextInt();
+        int day = in.nextInt();
+        int year = in.nextInt();
+        
+        printDay(month, day, year);
+        
+    }
+}
